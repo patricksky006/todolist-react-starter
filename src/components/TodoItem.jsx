@@ -108,13 +108,23 @@ const StyledTaskItem = styled.div`
 //onDelete:  監聽到 todo 刪除
 const TodoItem = ({ todo, onSave, onToggleDone, onChangeMode, onDelete }) => {
   return (
-    <StyledTaskItem className={clsx('', { done: todo.isDone }) }>
+    <StyledTaskItem
+      className={clsx('', { done: todo.isDone, edit: todo.isEdit })}
+    >
       <div className="task-item-checked">
-        <span className="icon icon-checked" onClick={()=>{onToggleDone?.(todo.id)}}/>
+        <span
+          className="icon icon-checked"
+          onClick={() => {
+            onToggleDone?.(todo.id);
+          }}
+        />
       </div>
-      <div className="task-item-body">
+      <div
+        className="task-item-body"
+        onDoubleClick={() => onChangeMode?.({ id: todo.id, isEdit: true })}
+      >
         <span className="task-item-body-text">{todo.title}</span>
-        <input className="task-item-body-input" />
+        <input className="task-item-body-input" value={todo.title} />
       </div>
       <div className="task-item-action ">
         <button className="btn-reset btn-destroy icon"></button>
