@@ -67,7 +67,12 @@ const StyledAddTodoActionContainer = styled.div`
     }
   }
 `;
-const TodoInput = () => {
+
+//inputValue : 代表使用者當前輸入的值
+//onChange: 監聽輸入框 value 產生的任何變化
+//onKeyDone: 監聽使用者按下 Enter 鍵
+//onAddTodo: 監聽使用者點擊新增按鈕，讓外部的元件知道有新的 todo 要加進來了
+const TodoInput = ({inputValue, onChange, onKeyDone, onAddTodo}) => {
   return (
     <StyledAddTodoContainer>
       <StyledLabelIcon className="icon" htmlFor="add-todo-input" />

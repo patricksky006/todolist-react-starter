@@ -100,14 +100,19 @@ const StyledTaskItem = styled.div`
   }
 `;
 
-const TodoItem = () => {
+//todo: 單筆 todo 資料
+//onSave: 監聽到 todo 的更新(應該等同onChange)
+//onToggleDone: 監聽到「是否完成」狀態的切換
+//onChangeMode: 切換到編輯狀態
+//onDelete:  監聽到 todo 刪除
+const TodoItem = ({ todo, onSave, onToggleDone, onChangeMode, onDelete }) => {
   return (
     <StyledTaskItem>
       <div className="task-item-checked">
         <span className="icon icon-checked" />
       </div>
       <div className="task-item-body">
-        <span className="task-item-body-text">todo</span>
+        <span className="task-item-body-text">{todo.title}</span>
         <input className="task-item-body-input" />
       </div>
       <div className="task-item-action ">
