@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 const StyledAddTodoContainer = styled.div`
@@ -73,11 +74,18 @@ const StyledAddTodoActionContainer = styled.div`
 //onKeyDone: 監聽使用者按下 Enter 鍵
 //onAddTodo: 監聽使用者點擊新增按鈕，讓外部的元件知道有新的 todo 要加進來了
 const TodoInput = ({inputValue, onChange, onKeyDone, onAddTodo}) => {
+
   return (
     <StyledAddTodoContainer>
       <StyledLabelIcon className="icon" htmlFor="add-todo-input" />
       <StyledInputContainer>
-        <input id="add-todo-input" type="text" placeholder="新增工作" />
+        <input
+          id="add-todo-input"
+          type="text"
+          placeholder="新增工作"
+          value={inputValue}
+          onChange={onChange}
+        />
       </StyledInputContainer>
       <StyledAddTodoActionContainer>
         <button className="btn-reset">新增</button>
