@@ -4,6 +4,7 @@ import {
   CheckCircleIcon,
   CheckHoverIcon,
 } from 'assets/images';
+import clsx from 'clsx';
 
 const StyledTaskItem = styled.div`
   min-height: 52px;
@@ -107,7 +108,7 @@ const StyledTaskItem = styled.div`
 //onDelete:  監聽到 todo 刪除
 const TodoItem = ({ todo, onSave, onToggleDone, onChangeMode, onDelete }) => {
   return (
-    <StyledTaskItem>
+    <StyledTaskItem className={clsx('', { done: todo.isDone }) }>
       <div className="task-item-checked">
         <span className="icon icon-checked" />
       </div>
