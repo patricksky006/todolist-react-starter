@@ -27,25 +27,54 @@ const TodoPage = () => {
     const [inputValue, setInputValue] = useState('');
     const [todos, setTodos] = useState(dummyTodos);
 
-    function handleOnChange(e) {
-      setInputValue(e.target.value);
-    }
+    const handleChange = (value) => {
+      setInputValue(value);
+    };
 
-    function handleOnAddTodo(){
-      if (inputValue.length===0){
-        return
+    const handleAddTodo = () => {
+      if (inputValue.length === 0) {
+        return;
       }
-      setTodos((prevTodos)=> {
-        return(
-          [{
-            id: Math.random()*100,
+      setTodos((todos) => {
+        return [
+          {
+            id: Math.random() * 100,
             title: inputValue,
             isDone: false,
           },
-          ...prevTodos]
-        )
+          ...todos,
+        ];
+      });
+      setInputValue('');
+    };
+    const handleKeyDown =  () => {
+      if (inputValue.length === 0) {
+        return;
+      }
+      setTodos((prevTodos) => {
+        return [
+          {
+            id: Math.random() * 100,
+            title: inputValue,
+            isDone: false,
+          },
+          ...prevTodos,
+        ];
+      });
+      setInputValue('');
+    }
+    const handleToggleDone = (id)=>{
+      setTodos((todos)=>{
+        return todos.map(todo=>{
+          if(todo.id === id) {
+            return {
+              ...todo,
+              isDone: !todo.isDone
+            };
+          }
+          return todo
+        })
       })
-      setInputValue('')
     }
   return (
     <div>
@@ -53,10 +82,11 @@ const TodoPage = () => {
       <Header />
       <TodoInput
         inputValue={inputValue}
-        onChange={handleOnChange}
-        onAddTodo={handleOnAddTodo}
+        onChange={handleChange}
+        onAddTodo={handleAddTodo}
+        onKeyDown={handleKeyDown}
       />
-      <TodoCollection todos={todos} />
+      <TodoCollection todos={todos} onToggleDone={handleToggleDone} />
       <Footer />
     </div>
   );
