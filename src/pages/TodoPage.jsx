@@ -24,85 +24,90 @@ const dummyTodos = [
 ];
 
 const TodoPage = () => {
-    const [inputValue, setInputValue] = useState('');
-    const [todos, setTodos] = useState(dummyTodos);
+  const [inputValue, setInputValue] = useState('');
+  const [todos, setTodos] = useState(dummyTodos);
 
-    const handleChange = (value) => {
-      setInputValue(value);
-    };
+  const handleChange = (value) => {
+    setInputValue(value);
+  };
 
-    const handleAddTodo = () => {
-      if (inputValue.length === 0) {
-        return;
-      }
-      setTodos((todos) => {
-        return [
-          {
-            id: Math.random() * 100,
-            title: inputValue,
-            isDone: false,
-          },
-          ...todos,
-        ];
+  const handleAddTodo = () => {
+    if (inputValue.length === 0) {
+      return;
+    }
+    setTodos((todos) => {
+      return [
+        {
+          id: Math.random() * 100,
+          title: inputValue,
+          isDone: false,
+        },
+        ...todos,
+      ];
+    });
+    setInputValue('');
+  };
+  const handleKeyDown = () => {
+    if (inputValue.length === 0) {
+      return;
+    }
+    setTodos((prevTodos) => {
+      return [
+        {
+          id: Math.random() * 100,
+          title: inputValue,
+          isDone: false,
+        },
+        ...prevTodos,
+      ];
+    });
+    setInputValue('');
+  };
+  const handleToggleDone = ({ id }) => {
+    setTodos((todos) => {
+      return todos.map((todo) => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            isDone: !todo.isDone,
+          };
+        }
+        return todo;
       });
-      setInputValue('');
-    };
-    const handleKeyDown =  () => {
-      if (inputValue.length === 0) {
-        return;
-      }
-      setTodos((prevTodos) => {
-        return [
-          {
-            id: Math.random() * 100,
-            title: inputValue,
-            isDone: false,
-          },
-          ...prevTodos,
-        ];
+    });
+  };
+  const handleChangeMode = ({ id, isEdit }) => {
+    setTodos((todos) => {
+      return todos.map((todo) => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            isEdit,
+          };
+        }
+        return { ...todo, isEdit: false };
       });
-      setInputValue('');
-    }
-    const handleToggleDone = (id)=>{
-      setTodos((todos)=>{
-        return todos.map(todo=>{
-          if(todo.id === id) {
-            return {
-              ...todo,
-              isDone: !todo.isDone
-            };
-          }
-          return todo
-        })
-      })
-    }
-    const handleChangeMode = ({id, isEdit}) => {
-      setTodos((todos)=>{
-        return todos.map((todo)=> {
-          if (todo.id === id){
-            return {
-              ...todo,
-              isEdit,
-            };
-          }
-          return { ...todo, isEdit: false }
-        })
-      })
-    }
-    const handleSave = ({id, title}) => {
-      setTodos((todos) => {
-        return todos.map((todo)=>{
-          if (todo.id === id) {
-            return {
-              ...todo,
-              title: title,
-              isEdit: false,
-            }
-          }
-          return todo
-        })
-      })
-    }
+    });
+  };
+  const handleSave = ({ id, title }) => {
+    setTodos((todos) => {
+      return todos.map((todo) => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            title: title,
+            isEdit: false,
+          };
+        }
+        return todo;
+      });
+    });
+  };
+  const handleDeleteItem = ({ id }) => {
+    setTodos((todos) => {
+      return todos.filter((todo) => todo.id !== id);
+    });
+  };
   return (
     <div>
       TodoPage
@@ -118,6 +123,7 @@ const TodoPage = () => {
         onToggleDone={handleToggleDone}
         onChangeMode={handleChangeMode}
         onSave={handleSave}
+        onDelete={handleDeleteItem}
       />
       <Footer />
     </div>

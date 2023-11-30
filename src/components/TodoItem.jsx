@@ -125,7 +125,7 @@ const TodoItem = ({ todo, onSave, onToggleDone, onChangeMode, onDelete }) => {
         <span
           className="icon icon-checked"
           onClick={() => {
-            onToggleDone?.(todo.id);
+            onToggleDone?.({ id: todo.id });
           }}
         />
       </div>
@@ -142,7 +142,12 @@ const TodoItem = ({ todo, onSave, onToggleDone, onChangeMode, onDelete }) => {
         />
       </div>
       <div className="task-item-action ">
-        <button className="btn-reset btn-destroy icon"></button>
+        <button
+          className="btn-reset btn-destroy icon"
+          onClick={() => {
+            onDelete?.({ id: todo.id });
+          }}
+        ></button>
       </div>
     </StyledTaskItem>
   );
