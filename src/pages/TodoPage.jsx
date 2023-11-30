@@ -89,6 +89,20 @@ const TodoPage = () => {
         })
       })
     }
+    const handleSave = ({id, title}) => {
+      setTodos((todos) => {
+        return todos.map((todo)=>{
+          if (todo.id === id) {
+            return {
+              ...todo,
+              title: title,
+              isEdit: false,
+            }
+          }
+          return todo
+        })
+      })
+    }
   return (
     <div>
       TodoPage
@@ -103,6 +117,7 @@ const TodoPage = () => {
         todos={todos}
         onToggleDone={handleToggleDone}
         onChangeMode={handleChangeMode}
+        onSave={handleSave}
       />
       <Footer />
     </div>
