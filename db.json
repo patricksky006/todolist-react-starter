@@ -1,13 +1,13 @@
 {
   "Todos": [
     {
-      "title": "Learn react-router",
-      "isDone": true,
+      "title": "Learn react-router25",
+      "isDone": false,
       "id": 1
     },
     {
       "title": "Learn to create custom hooks",
-      "isDone": false,
+      "isDone": true,
       "id": 2
     },
     {
@@ -17,16 +17,16 @@
     },
     {
       "title": "Learn to implement auth",
-      "isDone": false,
+      "isDone": true,
       "id": 4
     },
     {
       "title": "Test something",
-      "isDone": false,
+      "isDone": true,
       "id": 5
     },
     {
-      "title": "Test something-2",
+      "title": "Test something-5",
       "isDone": false,
       "id": 6
     },
@@ -34,16 +34,6 @@
       "title": "Test something-3",
       "isDone": false,
       "id": 7
-    },
-    {
-      "title": "123",
-      "isDone": false,
-      "id": 8
-    },
-    {
-      "title": "789",
-      "isDone": false,
-      "id": 9
     }
   ]
 }

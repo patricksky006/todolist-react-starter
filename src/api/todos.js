@@ -22,7 +22,7 @@ export const createTodo = async (payload) => {
   }
 };
 
-export const patchTodos = async (payload) => {
+export const patchTodo = async (payload) => {
   const { id, title, isDone } = payload;
 
   try {
@@ -33,7 +33,7 @@ export const patchTodos = async (payload) => {
   }
 };
 
-export const deleteTodos = async (id) => {
+export const deleteTodo = async (id) => {
   try {
     const res = await axios.delete(`${baseUrl}/todos/${id}`);
     return res.data;

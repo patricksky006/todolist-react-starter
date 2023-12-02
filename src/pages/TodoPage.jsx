@@ -1,6 +1,7 @@
 import { Footer, Header, TodoCollection, TodoInput } from 'components';
 import { useEffect, useState } from 'react';
-import { getTodos, createTodo } from 'api/todos';
+import { getTodos, createTodo, patchTodo, deleteTodo } from 'api/todos';
+import axios from 'axios';
 
 const TodoPage = () => {
   const [inputValue, setInputValue] = useState('');
@@ -61,18 +62,25 @@ const TodoPage = () => {
       console.error(error);
     }
   };
-  const handleToggleDone = ({ id }) => {
-    setTodos((todos) => {
-      return todos.map((todo) => {
-        if (todo.id === id) {
-          return {
-            ...todo,
-            isDone: !todo.isDone,
-          };
-        }
-        return todo;
+  const handleToggleDone = async ({ id }) => {
+    const currentTodo = todos.find((todo) => todo.id === id); //找出點選id的todo
+
+    try {
+      await patchTodo({ id, isDone: !currentTodo.isDone }); //負責處理資料庫的isDone
+      setTodos((todos) => {
+        return todos.map((todo) => {
+          if (todo.id === id) {
+            return {
+              ...todo,
+              isDone: !todo.isDone,
+            };
+          }
+          return todo;
+        });
       });
-    });
+    } catch (error) {
+      console.error(error);
+    }
   };
   const handleChangeMode = ({ id, isEdit }) => {
     setTodos((todos) => {
@@ -87,24 +95,35 @@ const TodoPage = () => {
       });
     });
   };
-  const handleSave = ({ id, title }) => {
-    setTodos((todos) => {
-      return todos.map((todo) => {
-        if (todo.id === id) {
-          return {
-            ...todo,
-            title: title,
-            isEdit: false,
-          };
-        }
-        return todo;
+  const handleSave = async ({ id, title }) => {
+    try {
+      await patchTodo({ id, title });
+
+      setTodos((todos) => {
+        return todos.map((todo) => {
+          if (todo.id === id) {
+            return {
+              ...todo,
+              title: title,
+              isEdit: false,
+            };
+          }
+          return todo;
+        });
       });
-    });
+    } catch (error) {
+      console.error(error);
+    }
   };
-  const handleDeleteItem = ({ id }) => {
-    setTodos((todos) => {
-      return todos.filter((todo) => todo.id !== id);
-    });
+  const handleDeleteItem = async ({ id }) => {
+    try {
+      await deleteTodo(id);
+      setTodos((todos) => {
+        return todos.filter((todo) => todo.id !== id);
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   //載入頁面時候，從後端撈資料出來
