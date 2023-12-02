@@ -1,7 +1,7 @@
 import { Footer, Header, TodoCollection, TodoInput } from 'components';
 import { useEffect, useState } from 'react';
 import { getTodos, createTodo, patchTodo, deleteTodo } from 'api/todos';
-import axios from 'axios';
+
 
 const TodoPage = () => {
   const [inputValue, setInputValue] = useState('');
