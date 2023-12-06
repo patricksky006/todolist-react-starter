@@ -10,10 +10,12 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { login } from 'api/auth';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     if (username.length === 0 || password.length === 0) {
@@ -35,6 +37,7 @@ const LoginPage = () => {
         timer: 1000,
         position: 'top'
       });
+      navigate('/todos')
       return;
     } else {
       Swal.fire({

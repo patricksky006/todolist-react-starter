@@ -10,11 +10,13 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 import {register} from '../api/auth'
+import { useNavigate } from 'react-router-dom';
 
 const SignUpPage = () => {
   const [username, setUserName] = useState('');
   const [email, setUserEmail] = useState('');
   const [password, setUserPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleRegisterClick = async() => {
     if (username.length === 0 || password.length === 0 || email.length === 0) {
@@ -40,6 +42,7 @@ const SignUpPage = () => {
         timer: 1000,
         position: 'top'
       });
+      navigate('/todos');
       return;
     } else {
       Swal.fire({
