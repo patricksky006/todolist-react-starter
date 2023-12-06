@@ -9,16 +9,18 @@ import { AuthInput } from 'components';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
-import {register, checkPermission} from '../api/auth'
+import {register} from '../api/auth'
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from 'contexts/AuthContext';
 
 const SignUpPage = () => {
   const [username, setUserName] = useState('');
   const [email, setUserEmail] = useState('');
   const [password, setUserPassword] = useState('');
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth(); // 取出需要的狀態與方法
 
-  const handleRegisterClick = async() => {
+  const handleRegisterClick = async () => {
     if (username.length === 0 || password.length === 0 || email.length === 0) {
       return Swal.fire({
         title: '錯誤',
@@ -40,7 +42,7 @@ const SignUpPage = () => {
         icon: 'success',
         showConfirmButton: false,
         timer: 1000,
-        position: 'top'
+        position: 'top',
       });
       navigate('/todos');
       return;
@@ -53,22 +55,13 @@ const SignUpPage = () => {
         position: 'top',
       });
     }
-  }
+  };
 
   useEffect(() => {
-    const checkTokenIsValid = async () => {
-      const authToken = localStorage.getItem('authToken');
-      if (!authToken) {
-        return;
-      }
-
-      const result = await checkPermission(authToken);
-      if (result) {
-        navigate('/todos');
-      }
-    };
-    checkTokenIsValid();
-  }, [navigate]);
+    if (isAuthenticated) {
+      navigate('/todos');
+    }
+  }, [navigate, isAuthenticated]);
 
   return (
     <AuthContainer>
