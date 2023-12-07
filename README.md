@@ -8,7 +8,7 @@ https://patricksky006.github.io/todolist-react-starter/
 
 ## 介紹
 
-- React todolist入門練習,搭配後端API,GitHub自動化部屬
+- React todolist入門練習，搭配後端API，GitHub自動化部屬
 
 ## 動機
 - 學習前端網頁製作
